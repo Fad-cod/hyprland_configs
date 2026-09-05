@@ -202,7 +202,7 @@ main() {
         
         for dep in "${MISSING_DEPS[@]}"; do
             print_info "Installing $dep..."
-            $PKG_INSTALL "$dep" 2>/dev/null || print_warning "Could not install $dep"
+            $PKG_INSTALL "$dep" &>/dev/null && print_success "$dep" || print_warning "Could not install $dep"
         done
         
         echo ""
@@ -218,7 +218,7 @@ main() {
         
         for dep in "${MISSING_AUR[@]}"; do
             print_info "Installing $dep..."
-            $AUR_INSTALL "$dep" 2>/dev/null || print_warning "Could not install $dep"
+            $AUR_INSTALL "$dep" &>/dev/null && print_success "$dep" || print_warning "Could not install $dep"
         done
         
         echo ""

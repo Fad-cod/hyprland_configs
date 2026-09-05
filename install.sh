@@ -322,13 +322,10 @@ main() {
     
     # Reload ambxst
     print_info "Reloading ambxst..."
-    if pgrep -x "ambxst" > /dev/null; then
-        pkill -x "ambxst" 2>/dev/null
-        sleep 1
-        ambxst &>/dev/null &
-        print_success "ambxst reloaded"
+    if command -v ambxst-reload &> /dev/null; then
+        ambxst-reload 2>/dev/null && print_success "ambxst reloaded" || print_warning "Could not reload ambxst"
     else
-        print_warning "ambxst not running (start manually)"
+        print_warning "ambxst-reload not found (reload manually with SUPER+ALT+B)"
     fi
     
     echo ""

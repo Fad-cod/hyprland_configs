@@ -130,6 +130,6 @@ Edit `variables.conf` to change:
 
 <div align="center">
 
-**Made with 💜 for the Hyprland community**
+**crafted for those who live in the terminal**
 
 </div>

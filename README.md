@@ -6,45 +6,101 @@
 
 [![Hyprland](https://img.shields.io/badge/Hyprland-Wayland-blue?style=flat-square)](https://hyprland.org)
 [![Lua](https://img.shields.io/badge/Lua-5.4-orange?style=flat-square)](https://www.lua.org)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](#)
 
 ---
 
 </div>
 
-## ✨ Features
-
-- 🎨 **Modular Lua configs** - Clean, readable configuration
-- 🎭 **Dynamic color schemes** - pywal integration for automatic theming
-- ⚡ **Optimized keybinds** - Efficient workflow shortcuts
-- 🖼️ **ambxst integration** - Dock, lockscreen, notifications & more
-
 ## 🚀 Quick Install
-
-Copy-paste this single command:
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/Fad-cod/hyprland_configs/main/install.sh | bash
 ```
 
-<br>
+---
 
-<details>
-<summary><b>📦 Manual Installation</b></summary>
+## ✨ What You Get
 
-```bash
-# Clone the repo
-git clone https://github.com/Fad-cod/hyprland_configs.git
-cd hyprland_configs
+### 🎨 Visual
+- **Material You colors** - Dynamic palette from your wallpaper
+- **Blur effects** - Configurable glass-like windows
+- **20px rounded corners** - Modern window styling
+- **Per-app opacity** - Toggle opacity on any app
+- **Sweet cursors** - Beautiful cursor theme
 
-# Run installer
-chmod +x install.sh
-./install.sh
-```
+### 🖥️ ambxst Integration
+- Custom dock
+- Lockscreen with animations
+- Notification system
+- App launcher
+- Auto color sync from wallpaper
 
-</details>
+---
 
-<br>
+## ⌨️ Keyboard Shortcuts
+
+### Apps
+| Shortcut | Action |
+|----------|--------|
+| `Super+T` | Terminal (kitty) |
+| `Super+W` | Browser (chromium) |
+| `Super+C` | Editor (VS Code) |
+| `Super+E` | File Explorer (dolphin) |
+| `Super+G` | GitHub Desktop |
+
+### Window Management
+| Shortcut | Action |
+|----------|--------|
+| `Super+Q` | Close window |
+| `Super+F` | Fullscreen toggle |
+| `Super+Space` | Toggle floating |
+| `Super+Z` | Move window |
+| `Super+X` | Resize window |
+| `Super+P` | Pin window |
+
+### Workspaces
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+Super+Left/Right` | Switch workspace |
+| `Super+PageUp/PageDown` | Switch workspace |
+| `Super+Alt+PageUp/PageDown` | Move window to workspace |
+| `Super+S` | Toggle special workspace |
+| `Super+M` | Music workspace |
+| `Super+D` | Communication workspace |
+| `Super+R` | Todo workspace |
+
+### Window Groups
+| Shortcut | Action |
+|----------|--------|
+| `Alt+Tab` | Cycle windows in group |
+| `Super+Comma` | Toggle group |
+| `Super+U` | Ungroup window |
+
+### Utilities
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl+Shift+Alt+V` | Clipboard history |
+| `Ctrl+Alt+V` | Volume control |
+| `Ctrl+Shift+Escape` | System monitor (btop) |
+| `Super+Shift+H` | Color picker |
+| `Super+L` | Lock screen |
+| `Super+Shift+L` | Sleep/Suspend |
+| `Super+Ctrl+B` | Caffeine mode (prevent sleep) |
+| `Super+O` | Toggle window opacity |
+
+---
+
+## 📜 Scripts
+
+| Script | Shortcut | Description |
+|--------|----------|-------------|
+| `toggle-sleep.sh` | `Super+Ctrl+B` | Toggle sleep inhibition (caffeine mode) |
+| `toggle_class_opacity.sh` | `Super+O` | Toggle opacity for current app |
+| `scheme-watcher.sh` | Auto | Sync colors when wallpaper changes |
+| `generate-scheme.sh` | Auto | Generate Material You colors |
+| `layout_bind_watcher.sh` | Auto | Update shortcuts based on layout |
+
+---
 
 ## 📁 What's Inside
 
@@ -72,23 +128,16 @@ hyprland_configs/
     └── ...
 ```
 
+---
+
 ## 🎨 Customization
 
-| File | Purpose |
-|------|---------|
-| `variables.conf` | Change apps, keybinds, colors |
-| `scheme/default.conf` | Default color palette |
-| `hyprland/keybinds.conf` | Keyboard shortcuts |
-
-## 📋 Requirements
-
-- [Hyprland](https://hyprland.org) - Window manager
-- [pywal](https://github.com/dylanaraps/pywal) - Color schemes *(optional)*
-- [ambxst](https://github.com/ambxst) - Desktop components *(optional)*
-
-## 🤝 Contributing
-
-Feel free to open issues or submit PRs!
+Edit `variables.conf` to change:
+- Default apps (terminal, browser, editor)
+- Touchpad settings
+- Blur and shadow options
+- Window gaps and rounding
+- All keybinds
 
 ---
 

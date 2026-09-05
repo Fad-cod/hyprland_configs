@@ -361,7 +361,7 @@ main() {
         print_warning "Reload manually (SUPER+ALT+B)"
     fi
     
-    # Final screen
+    # Final screen with features
     echo ""
     echo ""
     echo -e "${MAGENTA}${BOLD}    ╔═══════════════════════════════════════════════════════════════╗${RESET}"
@@ -370,9 +370,31 @@ main() {
     echo -e "${MAGENTA}${BOLD}    ║                                                               ║${RESET}"
     echo -e "${MAGENTA}${BOLD}    ║${RESET}  ${CYAN}  Config installed to: ${WHITE}$HYPR_DIR${RESET}  ${MAGENTA}${BOLD}║${RESET}"
     echo -e "${MAGENTA}${BOLD}    ║                                                               ║${RESET}"
-    echo -e "${MAGENTA}${BOLD}    ║${RESET}  ${DIM}  Enjoy your new Hyprland setup!                              ${RESET}${MAGENTA}${BOLD}║${RESET}"
-    echo -e "${MAGENTA}${BOLD}    ║                                                               ║${RESET}"
     echo -e "${MAGENTA}${BOLD}    ╚═══════════════════════════════════════════════════════════════╝${RESET}"
+    echo ""
+    
+    echo -e "    ${MAGENTA}${BOLD}━━━ FEATURES ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+    echo ""
+    echo -e "    ${CYAN}◆${RESET} ${WHITE}Material You colors${RESET}       Dynamic palette from wallpaper"
+    echo -e "    ${CYAN}◆${RESET} ${WHITE}ambxst integration${RESET}       Dock, lockscreen, notifications"
+    echo -e "    ${CYAN}◆${RESET} ${WHITE}Blur effects${RESET}             Glass-like windows"
+    echo -e "    ${CYAN}◆${RESET} ${WHITE}Window groups${RESET}            Tab-like window management"
+    echo -e "    ${CYAN}◆${RESET} ${WHITE}Clipboard history${RESET}        Ctrl+Shift+Alt+V"
+    echo ""
+    
+    echo -e "    ${MAGENTA}${BOLD}━━━ SHORTCUTS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+    echo ""
+    echo -e "    ${GREEN}Super+T${RESET} Terminal      ${GREEN}Super+W${RESET} Browser     ${GREEN}Super+C${RESET} Editor"
+    echo -e "    ${GREEN}Super+E${RESET} Files         ${GREEN}Super+G${RESET} GitHub      ${GREEN}Super+L${RESET} Lock"
+    echo -e "    ${GREEN}Super+F${RESET} Fullscreen    ${GREEN}Super+Q${RESET} Close       ${GREEN}Super+O${RESET} Opacity"
+    echo -e "    ${GREEN}Super+Space${RESET} Float   ${GREEN}Alt+Tab${RESET} Groups      ${GREEN}Super+S${RESET} Special WS"
+    echo ""
+    echo -e "    ${YELLOW}Super+Ctrl+B${RESET} Caffeine mode (prevent sleep)"
+    echo -e "    ${YELLOW}Super+Shift+H${RESET} Color picker"
+    echo -e "    ${YELLOW}Ctrl+Shift+Escape${RESET} System monitor"
+    echo ""
+    
+    echo -e "    ${DIM}${ITALIC}Enjoy your new Hyprland setup! 💜${RESET}"
     echo ""
     echo ""
 }

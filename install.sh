@@ -165,7 +165,6 @@ main() {
     
     # AUR packages (if yay/paru available)
     AUR_DEPS=(
-        "ambxst"
         "pywal"
     )
     

@@ -26,79 +26,66 @@ curl -sSL https://raw.githubusercontent.com/Fad-cod/hyprland_configs/main/instal
 - **Blur effects** - Configurable glass-like windows
 - **20px rounded corners** - Modern window styling
 - **Per-app opacity** - Toggle opacity on any app
-- **Sweet cursors** - Beautiful cursor theme
 
 ### 🖥️ ambxst Integration
-- Custom dock
+- Custom dock & launcher
 - Lockscreen with animations
 - Notification system
-- App launcher
-- Auto color sync from wallpaper
+- Screenshot & screen record
+- Wallpapers manager
+- Emoji picker
+- Notes & Tmux integration
+
+### 📜 Scripts
+- **scheme-watcher.sh** - Auto sync colors when wallpaper changes
+- **toggle-sleep.sh** - Caffeine mode (prevent sleep)
+- **toggle_class_opacity.sh** - Toggle opacity for any app
 
 ---
 
 ## ⌨️ Keyboard Shortcuts
 
-### Apps
+### ambxst (priority)
+| Shortcut | Action |
+|----------|--------|
+| `Super` | Launcher |
+| `Super+D` | Dashboard |
+| `Super+A` | Assistant |
+| `Super+V` | Clipboard |
+| `Super+Shift+O` | Emoji |
+| `Super+N` | Notes |
+| `Super+Shift+T` | Tmux |
+| `Super+,` | Wallpapers |
+| `Super+Tab` | Overview |
+| `Super+Escape` | Power menu |
+| `Super+Shift+C` | Config |
+| `Super+L` | Lock screen |
+| `Super+S` | Tools |
+| `Super+Shift+S` | Screenshot |
+| `Super+Shift+R` | Screen record |
+| `Super+Shift+A` | Lens |
+| `Super+Alt+B` | Reload ambxst |
+| `Super+C` | Close window |
+| `Super+Z` | Workspace left |
+| `Super+X` | Workspace right |
+| `Super+1-9` | Go to workspace |
+| `Super+Shift+1-9` | Move window to workspace |
+
+### Hyprland extras
 | Shortcut | Action |
 |----------|--------|
 | `Super+T` | Terminal (kitty) |
 | `Super+W` | Browser (chromium) |
-| `Super+C` | Editor (VS Code) |
-| `Super+E` | File Explorer (dolphin) |
 | `Super+G` | GitHub Desktop |
-
-### Window Management
-| Shortcut | Action |
-|----------|--------|
-| `Super+Q` | Close window |
-| `Super+F` | Fullscreen toggle |
-| `Super+Space` | Toggle floating |
-| `Super+Z` | Move window |
-| `Super+X` | Resize window |
-| `Super+P` | Pin window |
-
-### Workspaces
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+Super+Left/Right` | Switch workspace |
-| `Super+PageUp/PageDown` | Switch workspace |
-| `Super+Alt+PageUp/PageDown` | Move window to workspace |
-| `Super+S` | Toggle special workspace |
-| `Super+M` | Music workspace |
-| `Super+D` | Communication workspace |
-| `Super+R` | Todo workspace |
-
-### Window Groups
-| Shortcut | Action |
-|----------|--------|
-| `Alt+Tab` | Cycle windows in group |
-| `Super+Comma` | Toggle group |
-| `Super+U` | Ungroup window |
-
-### Utilities
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+Shift+Alt+V` | Clipboard history |
-| `Ctrl+Alt+V` | Volume control |
-| `Ctrl+Shift+Escape` | System monitor (btop) |
+| `Super+E` | Dolphin |
+| `Super+Alt+E` | Nemo |
 | `Super+Shift+H` | Color picker |
-| `Super+L` | Lock screen |
+| `Ctrl+Shift+Escape` | System monitor (btop) |
+| `Ctrl+Alt+V` | Volume control |
+| `Ctrl+Shift+Alt+V` | Clipboard paste |
+| `Super+O` | Toggle opacity |
+| `Super+Ctrl+B` | Caffeine mode |
 | `Super+Shift+L` | Sleep/Suspend |
-| `Super+Ctrl+B` | Caffeine mode (prevent sleep) |
-| `Super+O` | Toggle window opacity |
-
----
-
-## 📜 Scripts
-
-| Script | Shortcut | Description |
-|--------|----------|-------------|
-| `toggle-sleep.sh` | `Super+Ctrl+B` | Toggle sleep inhibition (caffeine mode) |
-| `toggle_class_opacity.sh` | `Super+O` | Toggle opacity for current app |
-| `scheme-watcher.sh` | Auto | Sync colors when wallpaper changes |
-| `generate-scheme.sh` | Auto | Generate Material You colors |
-| `layout_bind_watcher.sh` | Auto | Update shortcuts based on layout |
 
 ---
 

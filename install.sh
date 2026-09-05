@@ -73,19 +73,89 @@ print_progress() {
 main() {
     print_logo
     
-    print_step "Checking dependencies..."
+    print_step "Checking system..."
     sleep 0.5
     
-    # Check for required tools
-    if ! command -v curl &> /dev/null; then
-        print_warning "curl not found. Installing..."
-        if command -v pacman &> /dev/null; then
-            sudo pacman -S --noconfirm curl
-        elif command -v apt &> /dev/null; then
-            sudo apt install -y curl
-        fi
+    # Detect package manager
+    if command -v pacman &> /dev/null; then
+        PKG_MGR="pacman"
+        PKG_INSTALL="sudo pacman -S --noconfirm"
+    elif command -v apt &> /dev/null; then
+        PKG_MGR="apt"
+        PKG_INSTALL="sudo apt install -y"
+    elif command -v dnf &> /dev/null; then
+        PKG_MGR="dnf"
+        PKG_INSTALL="sudo dnf install -y"
+    elif command -v zypper &> /dev/null; then
+        PKG_MGR="zypper"
+        PKG_INSTALL="sudo zypper install -y"
+    else
+        print_warning "Unknown package manager. Install dependencies manually."
+        PKG_MGR="unknown"
     fi
-    print_success "curl found"
+    
+    print_info "Package manager: $PKG_MGR"
+    
+    echo ""
+    print_step "Checking dependencies..."
+    echo ""
+    
+    # List of required dependencies
+    DEPS=(
+        "hyprland"
+        "jq"
+        "curl"
+        "wget"
+        "git"
+        "python"
+        "fish"
+        "nodejs"
+        "npm"
+        "dunst"
+        " wl-clipboard"
+        "brightnessctl"
+        "playerctl"
+        "pavucontrol"
+        "network-manager-applet"
+        "file-roller"
+        "thunar"
+    )
+    
+    # Optional dependencies
+    OPT_DEPS=(
+        "pywal"
+        "ambxst"
+    )
+    
+    MISSING_DEPS=()
+    
+    # Check each dependency
+    for dep in "${DEPS[@]}"; do
+        if command -v "$dep" &> /dev/null || pacman -Qi "$dep" &> /dev/null 2>&1; then
+            print_success "$dep"
+        else
+            print_warning "$dep - missing"
+            MISSING_DEPS+=("$dep")
+        fi
+    done
+    
+    echo ""
+    
+    # Install missing dependencies
+    if [ ${#MISSING_DEPS[@]} -gt 0 ]; then
+        print_step "Installing missing dependencies..."
+        echo ""
+        
+        for dep in "${MISSING_DEPS[@]}"; do
+            print_info "Installing $dep..."
+            $PKG_INSTALL "$dep" 2>/dev/null || print_warning "Could not install $dep"
+        done
+        
+        echo ""
+        print_success "Dependencies installed"
+    else
+        print_success "All dependencies satisfied"
+    fi
     
     echo ""
     print_step "Creating directories..."

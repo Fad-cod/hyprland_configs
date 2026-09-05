@@ -313,11 +313,30 @@ main() {
     print_success "All files installed!"
     
     echo ""
+    print_step "Reloading services..."
+    echo ""
+    
+    # Reload Hyprland
+    print_info "Reloading Hyprland..."
+    hyprctl reload 2>/dev/null && print_success "Hyprland reloaded" || print_warning "Could not reload Hyprland (restart manually)"
+    
+    # Reload ambxst
+    print_info "Reloading ambxst..."
+    if pgrep -x "ambxst" > /dev/null; then
+        pkill -x "ambxst" 2>/dev/null
+        sleep 1
+        ambxst &>/dev/null &
+        print_success "ambxst reloaded"
+    else
+        print_warning "ambxst not running (start manually)"
+    fi
+    
+    echo ""
     print_step "Installation complete!"
     echo ""
     echo -e "${MAGENTA}${BOLD}  ═══════════════════════════════════════════════${RESET}"
     echo -e "${GREEN}${BOLD}    ✔ Config installed to ${CYAN}$HYPR_DIR${RESET}"
-    echo -e "${DIM}    Restart Hyprland to apply changes${RESET}"
+    echo -e "${GREEN}${BOLD}    ✔ Hyprland and ambxst reloaded${RESET}"
     echo -e "${MAGENTA}${BOLD}  ═══════════════════════════════════════════════${RESET}"
     echo ""
 }

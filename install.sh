@@ -69,6 +69,17 @@ print_progress() {
     printf "] %3d%%" $percent
 }
 
+# Check if package is installed
+is_installed() {
+    local pkg="$1"
+    command -v "$pkg" &> /dev/null && return 0
+    command -v pacman &> /dev/null && pacman -Qi "$pkg" &> /dev/null 2>&1 && return 0
+    command -v apt &> /dev/null && dpkg -l "$pkg" 2>/dev/null | grep -q "^ii" && return 0
+    command -v dnf &> /dev/null && dnf list installed "$pkg" &> /dev/null 2>&1 && return 0
+    command -v zypper &> /dev/null && zypper se -i "$pkg" &> /dev/null 2>&1 && return 0
+    return 1
+}
+
 # Main installation
 main() {
     print_logo
@@ -80,6 +91,34 @@ main() {
     if command -v pacman &> /dev/null; then
         PKG_MGR="pacman"
         PKG_INSTALL="sudo pacman -S --noconfirm"
+        
+        # Check for AUR helper
+        if command -v yay &> /dev/null; then
+            AUR_HELPER="yay"
+            AUR_INSTALL="yay -S --noconfirm"
+        elif command -v paru &> /dev/null; then
+            AUR_HELPER="paru"
+            AUR_INSTALL="paru -S --noconfirm"
+        else
+            AUR_HELPER=""
+            AUR_INSTALL=""
+            print_warning "No AUR helper found. Installing yay..."
+            print_info "Cloning yay..."
+            
+            cd /tmp
+            git clone https://aur.archlinux.org/yay.git 2>/dev/null
+            cd yay
+            makepkg -si --noconfirm 2>/dev/null || print_warning "Could not install yay automatically"
+            cd ~
+            
+            if command -v yay &> /dev/null; then
+                AUR_HELPER="yay"
+                AUR_INSTALL="yay -S --noconfirm"
+                print_success "yay installed"
+            else
+                print_warning "yay installation failed. AUR packages won't be installed."
+            fi
+        fi
     elif command -v apt &> /dev/null; then
         PKG_MGR="apt"
         PKG_INSTALL="sudo apt install -y"
@@ -95,6 +134,7 @@ main() {
     fi
     
     print_info "Package manager: $PKG_MGR"
+    [ -n "$AUR_HELPER" ] && print_info "AUR helper: $AUR_HELPER"
     
     echo ""
     print_step "Checking dependencies..."
@@ -112,32 +152,47 @@ main() {
         "nodejs"
         "npm"
         "dunst"
-        " wl-clipboard"
+        "wl-clipboard"
         "brightnessctl"
         "playerctl"
         "pavucontrol"
         "network-manager-applet"
         "file-roller"
         "thunar"
+        "qt5-wayland"
+        "qt6-wayland"
     )
     
-    # Optional dependencies
-    OPT_DEPS=(
-        "pywal"
+    # AUR packages (if yay/paru available)
+    AUR_DEPS=(
         "ambxst"
+        "pywal"
     )
     
     MISSING_DEPS=()
+    MISSING_AUR=()
     
     # Check each dependency
     for dep in "${DEPS[@]}"; do
-        if command -v "$dep" &> /dev/null || pacman -Qi "$dep" &> /dev/null 2>&1; then
+        if is_installed "$dep"; then
             print_success "$dep"
         else
             print_warning "$dep - missing"
             MISSING_DEPS+=("$dep")
         fi
     done
+    
+    # Check AUR dependencies
+    if [ -n "$AUR_HELPER" ]; then
+        for dep in "${AUR_DEPS[@]}"; do
+            if is_installed "$dep"; then
+                print_success "$dep"
+            else
+                print_warning "$dep - missing (AUR)"
+                MISSING_AUR+=("$dep")
+            fi
+        done
+    fi
     
     echo ""
     
@@ -155,6 +210,20 @@ main() {
         print_success "Dependencies installed"
     else
         print_success "All dependencies satisfied"
+    fi
+    
+    # Install missing AUR dependencies
+    if [ ${#MISSING_AUR[@]} -gt 0 ] && [ -n "$AUR_HELPER" ]; then
+        print_step "Installing AUR packages..."
+        echo ""
+        
+        for dep in "${MISSING_AUR[@]}"; do
+            print_info "Installing $dep..."
+            $AUR_INSTALL "$dep" 2>/dev/null || print_warning "Could not install $dep"
+        done
+        
+        echo ""
+        print_success "AUR packages installed"
     fi
     
     echo ""

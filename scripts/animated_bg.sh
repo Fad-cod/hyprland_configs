@@ -2,7 +2,7 @@
 # Script pour lancer un fond d'écran animé avec mpvpaper
 
 # Vidéo par défaut si aucun argument n'est fourni
-DEFAULT_VIDEO="/home/fadele/Vidéos/from-klickpin-cf-see-these-18-stunning-travel-packing-tips-that-help-you-create_ClDrOFCx.mp4"
+DEFAULT_VIDEO="$HOME/Vidéos/from-klickpin-cf-see-these-18-stunning-travel-packing-tips-that-help-you-create_ClDrOFCx.mp4"
 
 # Utilise l'argument si présent, sinon la vidéo par défaut
 VIDEO_PATH="${1:-$DEFAULT_VIDEO}"

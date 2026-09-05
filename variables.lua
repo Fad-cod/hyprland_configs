@@ -1,6 +1,6 @@
 -- ### Hyprland ###
 -- Apps
-HOME = "/home/fadele"
+HOME = os.getenv("HOME")
 terminal = "kitty"
 browser = "chromium"
 editor = "code"

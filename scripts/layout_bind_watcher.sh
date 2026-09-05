@@ -1,6 +1,6 @@
 #!/bin/bash
-STATE_FILE="/home/fadele/.local/state/ambxst/states.json"
-BIND_FILE="/home/fadele/.config/hypr/hyprland/layout_bind.lua"
+STATE_FILE="$HOME/.local/state/ambxst/states.json"
+BIND_FILE="$HOME/.config/hypr/hyprland/layout_bind.lua"
 
 update_bind() {
     layout=$(grep -oP '"compositorLayout":"\K[^"]+' "$STATE_FILE" 2>/dev/null)

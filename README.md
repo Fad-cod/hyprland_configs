@@ -37,9 +37,18 @@ curl -sSL https://raw.githubusercontent.com/Fad-cod/hyprland_configs/main/instal
 - Notes & Tmux integration
 
 ### 📜 Scripts
-- **scheme-watcher.sh** - Auto sync colors when wallpaper changes
-- **toggle-sleep.sh** - Caffeine mode (prevent sleep)
-- **toggle_class_opacity.sh** - Toggle opacity for any app
+
+| Script | Shortcut | Description |
+|--------|----------|-------------|
+| `scheme-watcher.sh` | Auto | Sync colors when wallpaper changes |
+| `generate-scheme.sh` | Auto | Generate Material You colors from wallpaper |
+| `toggle-sleep.sh` | `Super+Ctrl+B` | Toggle sleep inhibition (caffeine mode) |
+| `toggle_class_opacity.sh` | `Super+O` | Toggle opacity for current app |
+| `toggle_fullscreen.sh` | - | Smart fullscreen (scrolling aware) |
+| `layout_bind_watcher.sh` | Auto | Update shortcuts based on layout |
+| `animated_bg.sh` | - | Animated wallpaper with mpvpaper |
+| `update-system.sh` | - | Arch Linux system updater |
+| `wsaction.fish` | - | Workspace action helper |
 
 ---
 

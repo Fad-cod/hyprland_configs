@@ -3,13 +3,20 @@
 
 set -e
 
-# Colors
+# Colors & Styles
 BOLD='\033[1m'
 DIM='\033[2m'
-CYAN='\033[36m'
+ITALIC='\033[3m'
+UNDERLINE='\033[4m'
+BLINK='\033[5m'
+RED='\033[31m'
 GREEN='\033[32m'
 YELLOW='\033[33m'
+BLUE='\033[34m'
 MAGENTA='\033[35m'
+CYAN='\033[36m'
+WHITE='\033[37m'
+BG_BLACK='\033[40m'
 RESET='\033[0m'
 
 # Config
@@ -17,56 +24,93 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 HYPR_DIR="$HOME/.config/hypr"
 AMBXST_DIR="$HOME/.local/share/ambxst"
 
+# Spinner animation
+spinner() {
+    local pid=$1
+    local delay=0.1
+    local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+    
+    while kill -0 "$pid" 2>/dev/null; do
+        for (( i=0; i<${#spinstr}; i++ )); do
+            printf "\r    ${CYAN}${spinstr:$i:1}${RESET} "
+            sleep $delay
+        done
+    done
+    printf "\r"
+}
+
 # Print functions
 print_logo() {
+    clear
     echo ""
     echo -e "${MAGENTA}${BOLD}"
-    echo "╔═════════════════════════════════════════════════════════════════════╗"
-    echo "║ ╔═════════════════════════════════════════════════════════════════╗ ║"
-    echo "║ ║                                                                 ║ ║"
-    echo "║ ║     █████╗  ███╗   ███╗ ██████╗  ██╗  ██╗ ███████╗ ████████╗    ║ ║"
-    echo "║ ║    ██╔══██╗ ████╗ ████║ ██╔══██╗ ╚██╗██╔╝ ██╔════╝ ╚══██╔══╝    ║ ║"
-    echo "║ ║    ███████║ ██╔████╔██║ ██████╔╝  ╚███╔╝  ███████╗    ██║       ║ ║"
-    echo "║ ║    ██╔══██║ ██║╚██╔╝██║ ██╔══██╗  ██╔██╗  ╚════██║    ██║       ║ ║"
-    echo "║ ║    ██║  ██║ ██║ ╚═╝ ██║ ██████╔╝ ██╔╝ ██╗ ███████║    ██║       ║ ║"
-    echo "║ ║    ╚═╝  ╚═╝ ╚═╝     ╚═╝ ╚═════╝  ╚═╝  ╚═╝ ╚══════╝    ╚═╝       ║ ║"
-    echo "║ ║                                                                 ║ ║"
-    echo "║ ║                      Config Installer v1.0                      ║ ║"
-    echo "║ ║                                                                 ║ ║"
-    echo "║ ╚═════════════════════════════════════════════════════════════════╝ ║"
-    echo "╚═════════════════════════════════════════════════════════════════════╝"
+    echo "    ┌─────────────────────────────────────────────────────────────┐"
+    echo "    │                                                             │"
+    echo "    │     █████╗  ███╗   ███╗ ██████╗  ██╗  ██╗ ███████╗ ████████╗│"
+    echo "    │    ██╔══██╗ ████╗ ████║ ██╔══██╗ ╚██╗██╔╝ ██╔════╝ ╚══██╔══╝│"
+    echo "    │    ███████║ ██╔████╔██║ ██████╔╝  ╚███╔╝  ███████╗    ██║   │"
+    echo "    │    ██╔══██║ ██║╚██╔╝██║ ██╔══██╗  ██╔██╗  ╚════██║    ██║   │"
+    echo "    │    ██║  ██║ ██║ ╚═╝ ██║ ██████╔╝ ██╔╝ ██╗ ███████║    ██║   │"
+    echo "    │    ╚═╝  ╚═╝ ╚═╝     ╚═╝ ╚═════╝  ╚═╝  ╚═╝ ╚══════╝    ╚═╝   │"
+    echo "    │                                                             │"
+    echo "    │                  ✦ Config Installer v1.0 ✦                  │"
+    echo "    │                                                             │"
+    echo "    └─────────────────────────────────────────────────────────────┘"
     echo -e "${RESET}"
-    echo -e "${CYAN}${BOLD}  ✦ Hyprland Config Installer ✦${RESET}"
-    echo -e "${DIM}  ─────────────────────────────${RESET}"
+    echo ""
+    echo -e "    ${DIM}${ITALIC}A beautiful setup for a beautiful desktop${RESET}"
+    echo ""
+}
+
+print_header() {
+    echo ""
+    echo -e "${MAGENTA}${BOLD}    ╭──────────────────────────────────────────────────────────────╮${RESET}"
+    echo -e "${MAGENTA}${BOLD}    │${RESET}  ${CYAN}${BOLD}${1}${RESET}"
+    echo -e "${MAGENTA}${BOLD}    ╰──────────────────────────────────────────────────────────────╯${RESET}"
     echo ""
 }
 
 print_step() {
-    echo -e "${GREEN}${BOLD}  ▸ ${1}${RESET}"
+    echo -e "    ${GREEN}${BOLD}▸${RESET} ${WHITE}${BOLD}${1}${RESET}"
 }
 
 print_info() {
-    echo -e "${CYAN}    ℹ ${1}${RESET}"
+    echo -e "      ${CYAN}◆${RESET} ${DIM}${1}${RESET}"
 }
 
 print_success() {
-    echo -e "${GREEN}${BOLD}    ✔ ${1}${RESET}"
+    echo -e "      ${GREEN}${BOLD}✔${RESET} ${GREEN}${1}${RESET}"
 }
 
 print_warning() {
-    echo -e "${YELLOW}    ⚠ ${1}${RESET}"
+    echo -e "      ${YELLOW}${BOLD}⚠${RESET} ${YELLOW}${1}${RESET}"
+}
+
+print_error() {
+    echo -e "      ${RED}${BOLD}✖${RESET} ${RED}${1}${RESET}"
 }
 
 print_progress() {
-    local width=30
+    local width=40
     local percent=$1
     local filled=$((percent * width / 100))
     local empty=$((width - filled))
     
-    printf "\r    ["
-    printf "%0.s█" $(seq 1 $filled 2>/dev/null) || true
-    printf "%0.s░" $(seq 1 $empty 2>/dev/null) || true
-    printf "] %3d%%" $percent
+    printf "\r      ${CYAN}["
+    printf "%0.s━" $(seq 1 $filled 2>/dev/null) || true
+    if [ $filled -lt $width ]; then
+        printf "${DIM}DownList"
+        printf "%0.s─" $(seq 1 $empty 2>/dev/null) || true
+    fi
+    printf "${CYAN}]${RESET} ${BOLD}%3d%%${RESET}" $percent
+}
+
+print_section() {
+    echo ""
+    echo -e "    ${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+    echo -e "    ${MAGENTA}${BOLD}  ${1}${RESET}"
+    echo -e "    ${MAGENTA}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+    echo ""
 }
 
 # Check if package is installed
@@ -84,8 +128,9 @@ is_installed() {
 main() {
     print_logo
     
+    print_header "INITIALIZING"
     print_step "Checking system..."
-    sleep 0.5
+    sleep 0.3
     
     # Detect package manager
     if command -v pacman &> /dev/null; then
@@ -102,13 +147,13 @@ main() {
         else
             AUR_HELPER=""
             AUR_INSTALL=""
-            print_warning "No AUR helper found. Installing yay..."
-            print_info "Cloning yay..."
+            print_warning "No AUR helper found"
+            print_info "Installing yay..."
             
             cd /tmp
-            git clone https://aur.archlinux.org/yay.git 2>/dev/null
+            git clone https://aur.archlinux.org/yay.git &>/dev/null
             cd yay
-            makepkg -si --noconfirm 2>/dev/null || print_warning "Could not install yay automatically"
+            makepkg -si --noconfirm &>/dev/null || print_error "Could not install yay"
             cd ~
             
             if command -v yay &> /dev/null; then
@@ -116,7 +161,7 @@ main() {
                 AUR_INSTALL="yay -S --noconfirm"
                 print_success "yay installed"
             else
-                print_warning "yay installation failed. AUR packages won't be installed."
+                print_error "yay installation failed"
             fi
         fi
     elif command -v apt &> /dev/null; then
@@ -129,16 +174,15 @@ main() {
         PKG_MGR="zypper"
         PKG_INSTALL="sudo zypper install -y"
     else
-        print_warning "Unknown package manager. Install dependencies manually."
+        print_error "Unknown package manager"
         PKG_MGR="unknown"
     fi
     
-    print_info "Package manager: $PKG_MGR"
-    [ -n "$AUR_HELPER" ] && print_info "AUR helper: $AUR_HELPER"
+    print_success "System: ${CYAN}$PKG_MGR${RESET}"
+    [ -n "$AUR_HELPER" ] && print_success "AUR: ${CYAN}$AUR_HELPER${RESET}"
+    sleep 0.3
     
-    echo ""
-    print_step "Checking dependencies..."
-    echo ""
+    print_header "DEPENDENCIES"
     
     # List of required dependencies
     DEPS=(
@@ -176,7 +220,7 @@ main() {
         if is_installed "$dep"; then
             print_success "$dep"
         else
-            print_warning "$dep - missing"
+            print_warning "$dep"
             MISSING_DEPS+=("$dep")
         fi
     done
@@ -187,58 +231,49 @@ main() {
             if is_installed "$dep"; then
                 print_success "$dep"
             else
-                print_warning "$dep - missing (AUR)"
+                print_warning "$dep (AUR)"
                 MISSING_AUR+=("$dep")
             fi
         done
     fi
     
-    echo ""
+    sleep 0.2
     
     # Install missing dependencies
     if [ ${#MISSING_DEPS[@]} -gt 0 ]; then
-        print_step "Installing missing dependencies..."
-        echo ""
+        print_header "INSTALLING PACKAGES"
         
         for dep in "${MISSING_DEPS[@]}"; do
-            print_info "Installing $dep..."
-            $PKG_INSTALL "$dep" &>/dev/null && print_success "$dep" || print_warning "Could not install $dep"
+            print_step "Installing $dep..."
+            ($PKG_INSTALL "$dep" &>/dev/null) &
+            spinner $!
+            print_success "$dep"
         done
-        
-        echo ""
-        print_success "Dependencies installed"
-    else
-        print_success "All dependencies satisfied"
     fi
     
     # Install missing AUR dependencies
     if [ ${#MISSING_AUR[@]} -gt 0 ] && [ -n "$AUR_HELPER" ]; then
-        print_step "Installing AUR packages..."
-        echo ""
+        print_header "INSTALLING AUR PACKAGES"
         
         for dep in "${MISSING_AUR[@]}"; do
-            print_info "Installing $dep..."
-            $AUR_INSTALL "$dep" &>/dev/null && print_success "$dep" || print_warning "Could not install $dep"
+            print_step "Installing $dep..."
+            ($AUR_INSTALL "$dep" &>/dev/null) &
+            spinner $!
+            print_success "$dep"
         done
-        
-        echo ""
-        print_success "AUR packages installed"
     fi
     
-    echo ""
-    print_step "Creating directories..."
-    sleep 0.3
+    print_header "SETTING UP DIRECTORIES"
     
     mkdir -p "$HYPR_DIR/hyprland"
     mkdir -p "$HYPR_DIR/scheme"
     mkdir -p "$HYPR_DIR/scripts"
     mkdir -p "$AMBXST_DIR"
     
-    print_success "Directories created"
+    print_success "Directory structure created"
+    sleep 0.2
     
-    echo ""
-    print_step "Installing configuration files..."
-    echo ""
+    print_header "INSTALLING CONFIGURATION"
     
     # Count total files first
     TOTAL_FILES=0
@@ -263,7 +298,7 @@ main() {
             cp "$SCRIPT_DIR/$file" "$HYPR_DIR/"
             CURRENT_FILE=$((CURRENT_FILE + 1))
             print_progress $((CURRENT_FILE * 100 / TOTAL_FILES))
-            sleep 0.05
+            sleep 0.03
         fi
     done
     
@@ -273,7 +308,7 @@ main() {
             cp "$file" "$HYPR_DIR/hyprland/"
             CURRENT_FILE=$((CURRENT_FILE + 1))
             print_progress $((CURRENT_FILE * 100 / TOTAL_FILES))
-            sleep 0.05
+            sleep 0.03
         fi
     done
     
@@ -283,7 +318,7 @@ main() {
             cp "$file" "$HYPR_DIR/scheme/"
             CURRENT_FILE=$((CURRENT_FILE + 1))
             print_progress $((CURRENT_FILE * 100 / TOTAL_FILES))
-            sleep 0.05
+            sleep 0.03
         fi
     done
     
@@ -294,7 +329,7 @@ main() {
             chmod +x "$HYPR_DIR/scripts/$(basename "$file")"
             CURRENT_FILE=$((CURRENT_FILE + 1))
             print_progress $((CURRENT_FILE * 100 / TOTAL_FILES))
-            sleep 0.05
+            sleep 0.03
         fi
     done
     
@@ -304,7 +339,7 @@ main() {
             cp "$file" "$AMBXST_DIR/"
             CURRENT_FILE=$((CURRENT_FILE + 1))
             print_progress $((CURRENT_FILE * 100 / TOTAL_FILES))
-            sleep 0.05
+            sleep 0.03
         fi
     done 2>/dev/null || true
     
@@ -312,29 +347,33 @@ main() {
     echo ""
     print_success "All files installed!"
     
-    echo ""
-    print_step "Reloading services..."
-    echo ""
+    print_header "RELOADING SERVICES"
     
     # Reload Hyprland
-    print_info "Reloading Hyprland..."
-    hyprctl reload 2>/dev/null && print_success "Hyprland reloaded" || print_warning "Could not reload Hyprland (restart manually)"
+    print_step "Reloading Hyprland..."
+    hyprctl reload &>/dev/null && print_success "Hyprland reloaded" || print_warning "Restart manually"
     
     # Reload ambxst
-    print_info "Reloading ambxst..."
+    print_step "Reloading ambxst..."
     if command -v ambxst-reload &> /dev/null; then
-        ambxst-reload 2>/dev/null && print_success "ambxst reloaded" || print_warning "Could not reload ambxst"
+        ambxst-reload &>/dev/null && print_success "ambxst reloaded" || print_warning "Reload manually (SUPER+ALT+B)"
     else
-        print_warning "ambxst-reload not found (reload manually with SUPER+ALT+B)"
+        print_warning "Reload manually (SUPER+ALT+B)"
     fi
     
+    # Final screen
     echo ""
-    print_step "Installation complete!"
     echo ""
-    echo -e "${MAGENTA}${BOLD}  ═══════════════════════════════════════════════${RESET}"
-    echo -e "${GREEN}${BOLD}    ✔ Config installed to ${CYAN}$HYPR_DIR${RESET}"
-    echo -e "${GREEN}${BOLD}    ✔ Hyprland and ambxst reloaded${RESET}"
-    echo -e "${MAGENTA}${BOLD}  ═══════════════════════════════════════════════${RESET}"
+    echo -e "${MAGENTA}${BOLD}    ╔═══════════════════════════════════════════════════════════════╗${RESET}"
+    echo -e "${MAGENTA}${BOLD}    ║                                                               ║${RESET}"
+    echo -e "${MAGENTA}${BOLD}    ║${RESET}  ${GREEN}${BOLD}  ✔ Installation Complete!                                    ${RESET}${MAGENTA}${BOLD}║${RESET}"
+    echo -e "${MAGENTA}${BOLD}    ║                                                               ║${RESET}"
+    echo -e "${MAGENTA}${BOLD}    ║${RESET}  ${CYAN}  Config installed to: ${WHITE}$HYPR_DIR${RESET}  ${MAGENTA}${BOLD}║${RESET}"
+    echo -e "${MAGENTA}${BOLD}    ║                                                               ║${RESET}"
+    echo -e "${MAGENTA}${BOLD}    ║${RESET}  ${DIM}  Enjoy your new Hyprland setup!                              ${RESET}${MAGENTA}${BOLD}║${RESET}"
+    echo -e "${MAGENTA}${BOLD}    ║                                                               ║${RESET}"
+    echo -e "${MAGENTA}${BOLD}    ╚═══════════════════════════════════════════════════════════════╝${RESET}"
+    echo ""
     echo ""
 }
 

@@ -21,18 +21,18 @@ AMBXST_DIR="$HOME/.local/share/ambxst"
 print_logo() {
     echo ""
     echo -e "${MAGENTA}${BOLD}"
-    cat << "EOF"
-    ╔═══════════════════════════════════════════╗
-    ║                                           ║
-    ║   ███╗   ███╗██╗   ██╗██████╗ ██╗ ██████╗██╗  ██╗██╗███████╗███████╗║
-    ║   ████╗ ████║╚██╗ ██╔╝██╔══██╗██║██╔════╝██║  ██║██║██╔════╝██╔════╝║
-    ║   ██╔████╔██║ ╚████╔╝ ██████╔╝██║██║     ███████║██║█████╗  ███████╗║
-    ║   ██║╚██╔╝██║  ╚██╔╝  ██╔══██╗██║██║     ██╔══██║██║██╔══╝  ╚════██║║
-    ║   ██║ ╚═╝ ██║   ██║   ██║  ██║██║╚██████╗██║  ██║██║███████╗███████║║
-    ║   ╚═╝     ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝║
-    ║                                           ║
-    ╚═══════════════════════════════════════════╝
-EOF
+    echo "    ╔═══════════════════════════════════════════╗"
+    echo "    ║                                           ║"
+    echo "    ║      ██╗  ██╗ ██████╗ ███████╗████████╗  ║"
+    echo "    ║      ██║  ██║██╔═══██╗██╔════╝╚══██╔══╝  ║"
+    echo "    ║      ███████║██║   ██║███████╗   ██║     ║"
+    echo "    ║      ██╔══██║██║   ██║╚════██║   ██║     ║"
+    echo "    ║      ██║  ██║╚██████╔╝███████║   ██║     ║"
+    echo "    ║      ╚═╝  ╚═╝ ╚═════╝ ╚══════╝   ╚═╝     ║"
+    echo "    ║                                           ║"
+    echo "    ║         Config Installer v1.0             ║"
+    echo "    ║                                           ║"
+    echo "    ╚═══════════════════════════════════════════╝"
     echo -e "${RESET}"
     echo -e "${CYAN}${BOLD}  ✦ Hyprland Config Installer ✦${RESET}"
     echo -e "${DIM}  ─────────────────────────────${RESET}"
@@ -100,8 +100,21 @@ main() {
     print_step "Installing configuration files..."
     echo ""
     
-    # Total files to copy
-    TOTAL_FILES=47
+    # Count total files first
+    TOTAL_FILES=0
+    for file in "$SCRIPT_DIR"/*.lua "$SCRIPT_DIR"/*.conf; do
+        [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
+    done
+    for file in "$SCRIPT_DIR/scheme/"*; do
+        [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
+    done
+    for file in "$SCRIPT_DIR/scripts/"*; do
+        [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
+    done
+    for file in "$SCRIPT_DIR"/ambxst*.conf "$SCRIPT_DIR"/ambxst*.lua; do
+        [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
+    done 2>/dev/null || true
+    
     CURRENT_FILE=0
     
     # Copy main configs

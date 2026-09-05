@@ -27,10 +27,10 @@ hl.bind(kbLock, hl.dsp.exec_cmd("ambxst lock"))
 -- Sleep
 hl.bind("SUPER + SHIFT + L", hl.dsp.exec_cmd("systemctl suspend-then-hibernate"), { locked = true })
 
--- Power profiles (pas dans ambxst)
-hl.bind("SUPER + F10", hl.dsp.exec_cmd('powerprofilesctl set power-saver && hyprctl keyword monitor eDP-1,1366x768@40,0x0,1 && sudo systemctl stop avahi-daemon && [ -f /sys/class/leds/*::kbd_backlight/brightness ] && echo 0 | sudo tee /sys/class/leds/*::kbd_backlight/brightness && notify-send "Alimentation" "Mode Ultra-Économie (40Hz + Avahi OFF) activé" -i battery-low'))
-hl.bind("SUPER + F11", hl.dsp.exec_cmd('powerprofilesctl set balanced && hyprctl keyword monitor eDP-1,1366x768@60,0x0,1 && sudo systemctl start avahi-daemon && notify-send "Alimentation" "Mode Équilibré (60Hz + Avahi ON) activé" -i battery-full'))
-hl.bind("SUPER + F12", hl.dsp.exec_cmd('powerprofilesctl set performance && hyprctl keyword monitor eDP-1,1366x768@60,0x0,1 && sudo systemctl start avahi-daemon && notify-send "Alimentation" "Mode Performance (60Hz + Avahi ON) activé" -i power-profile-performance'))
+-- Power profiles (customize for your monitor)
+-- hl.bind("SUPER + F10", hl.dsp.exec_cmd('powerprofilesctl set power-saver && notify-send "Power" "Power Saver"'))
+-- hl.bind("SUPER + F11", hl.dsp.exec_cmd('powerprofilesctl set balanced && notify-send "Power" "Balanced"'))
+-- hl.bind("SUPER + F12", hl.dsp.exec_cmd('powerprofilesctl set performance && notify-send "Power" "Performance"'))
 
 -- Utilitaires
 hl.bind("CTRL + SHIFT + ESCAPE", hl.dsp.exec_cmd("nice -n -5 foot --app-id btop btop"))

@@ -1,21 +1,21 @@
 #!/bin/bash
-# Script pour lancer un fond d'écran animé avec mpvpaper
+# Animated wallpaper script using mpvpaper
+# Usage: animated_bg.sh /path/to/video.mp4
 
-# Vidéo par défaut si aucun argument n'est fourni
-DEFAULT_VIDEO="$HOME/Vidéos/from-klickpin-cf-see-these-18-stunning-travel-packing-tips-that-help-you-create_ClDrOFCx.mp4"
-
-# Utilise l'argument si présent, sinon la vidéo par défaut
-VIDEO_PATH="${1:-$DEFAULT_VIDEO}"
-
-# Vérifier si le fichier existe
-if [ ! -f "$VIDEO_PATH" ]; then
-    echo "Erreur : Le fichier '$VIDEO_PATH' n'existe pas."
+if [ -z "$1" ]; then
+    echo "Usage: $0 /path/to/video.mp4"
+    echo "Example: $0 ~/Videos/my-wallpaper.mp4"
     exit 1
 fi
 
-# Tuer l'instance précédente
+VIDEO_PATH="$1"
+
+if [ ! -f "$VIDEO_PATH" ]; then
+    echo "Error: '$VIDEO_PATH' not found"
+    exit 1
+fi
+
 pkill mpvpaper
 
-# Lancer le nouveau fond d'écran
 mpvpaper -o "no-audio --loop" '*' "$VIDEO_PATH" &
-echo "Fond d'écran animé lancé avec : $VIDEO_PATH"
+echo "Animated wallpaper: $VIDEO_PATH"

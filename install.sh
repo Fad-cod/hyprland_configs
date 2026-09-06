@@ -389,7 +389,7 @@ main() {
     echo -e "    ${GREEN}Super+Tab${RESET} Overview   ${GREEN}Super+S${RESET} Tools         ${GREEN}Super+L${RESET} Lock"
     echo ""
     echo -e "    ${GREEN}Super+T${RESET} Terminal      ${GREEN}Super+W${RESET} Browser       ${GREEN}Super+G${RESET} GitHub"
-    echo -e "    ${GREEN}Super+E${RESET} Dolphin       ${GREEN}Super+C${RESET} Close         ${GREEN}Super+O${RESET} Opacity"
+    echo -e "    ${GREEN}Super+E${RESET} Dolphin       ${GREEN}Super+Q${RESET} Close         ${GREEN}Super+O${RESET} Opacity"
     echo ""
     echo -e "    ${YELLOW}Super+Alt+B${RESET} Reload ambxst"
     echo -e "    ${YELLOW}Super+Shift+C${RESET} ambxst Config"

@@ -74,7 +74,7 @@ curl -sSL https://raw.githubusercontent.com/Fad-cod/hyprland_configs/main/instal
 | `Super+Shift+R` | Screen record |
 | `Super+Shift+A` | Lens |
 | `Super+Alt+B` | Reload ambxst |
-| `Super+C` | Close window |
+| `Super+Q` | Close window |
 | `Super+Z` | Workspace left |
 | `Super+X` | Workspace right |
 | `Super+1-9` | Go to workspace |

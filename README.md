@@ -67,7 +67,7 @@ curl -sSL https://raw.githubusercontent.com/Fad-cod/hyprland_configs/main/instal
 | `Super+,` | Wallpapers |
 | `Super+Tab` | Overview |
 | `Super+Escape` | Power menu |
-| `Super+Shift+C` | Config |
+| `Super+Shift+C` | ambxst Config |
 | `Super+L` | Lock screen |
 | `Super+S` | Tools |
 | `Super+Shift+S` | Screenshot |

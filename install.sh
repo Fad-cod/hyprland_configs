@@ -392,6 +392,7 @@ main() {
     echo -e "    ${GREEN}Super+E${RESET} Dolphin       ${GREEN}Super+C${RESET} Close         ${GREEN}Super+O${RESET} Opacity"
     echo ""
     echo -e "    ${YELLOW}Super+Alt+B${RESET} Reload ambxst"
+    echo -e "    ${YELLOW}Super+Shift+C${RESET} ambxst Config"
     echo -e "    ${YELLOW}Super+Ctrl+B${RESET} Caffeine mode (prevent sleep)"
     echo -e "    ${YELLOW}Super+Shift+H${RESET} Color picker"
     echo -e "    ${YELLOW}Ctrl+Shift+Escape${RESET} System monitor"

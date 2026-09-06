@@ -20,7 +20,8 @@ BG_BLACK='\033[40m'
 RESET='\033[0m'
 
 # Config
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_URL="https://github.com/Fad-cod/hyprland_configs"
+CLONE_DIR="/tmp/hyprland_config_install"
 HYPR_DIR="$HOME/.config/hypr"
 AMBXST_DIR="$HOME/.local/share/ambxst"
 
@@ -128,9 +129,19 @@ is_installed() {
 main() {
     print_logo
     
-    print_header "INITIALIZING"
-    print_step "Checking system..."
-    sleep 0.3
+print_header "INITIALIZING"
+print_step "Checking system..."
+sleep 0.3
+
+# Clone repo to temp directory
+print_step "Downloading config files..."
+rm -rf "$CLONE_DIR"
+git clone --depth 1 "$REPO_URL" "$CLONE_DIR" &>/dev/null || {
+    print_error "Failed to clone repository"
+    exit 1
+}
+SCRIPT_DIR="$CLONE_DIR"
+print_success "Config downloaded"
     
     # Detect package manager
     if command -v pacman &> /dev/null; then
@@ -275,20 +286,23 @@ main() {
     
     print_header "INSTALLING CONFIGURATION"
     
-    # Count total files first
-    TOTAL_FILES=0
-    for file in "$SCRIPT_DIR"/*.lua "$SCRIPT_DIR"/*.conf; do
-        [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
-    done
-    for file in "$SCRIPT_DIR/scheme/"*; do
-        [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
-    done
-    for file in "$SCRIPT_DIR/scripts/"*; do
-        [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
-    done
-    for file in "$SCRIPT_DIR"/ambxst*.conf "$SCRIPT_DIR"/ambxst*.lua; do
-        [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
-    done 2>/dev/null || true
+# Count total files first
+TOTAL_FILES=0
+for file in "$SCRIPT_DIR"/*.lua "$SCRIPT_DIR"/*.conf; do
+    [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
+done
+for file in "$SCRIPT_DIR/hyprland/"*.lua "$SCRIPT_DIR/hyprland/"*.conf; do
+    [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
+done
+for file in "$SCRIPT_DIR/scheme/"*; do
+    [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
+done
+for file in "$SCRIPT_DIR/scripts/"*; do
+    [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
+done
+for file in "$SCRIPT_DIR"/ambxst*.conf "$SCRIPT_DIR"/ambxst*.lua; do
+    [ -f "$file" ] && TOTAL_FILES=$((TOTAL_FILES + 1))
+done 2>/dev/null || true
     
     CURRENT_FILE=0
     
@@ -302,15 +316,25 @@ main() {
         fi
     done
     
-    # Copy module configs
-    for file in "$SCRIPT_DIR"/*.lua "$SCRIPT_DIR"/*.conf; do
-        if [ -f "$file" ] && [ "$(basename "$file")" != "hyprland.conf" ] && [ "$(basename "$file")" != "hyprland.lua" ] && [ "$(basename "$file")" != "variables.conf" ]; then
-            cp "$file" "$HYPR_DIR/hyprland/"
-            CURRENT_FILE=$((CURRENT_FILE + 1))
-            print_progress $((CURRENT_FILE * 100 / TOTAL_FILES))
-            sleep 0.03
-        fi
-    done
+# Copy module configs
+for file in "$SCRIPT_DIR"/*.lua "$SCRIPT_DIR"/*.conf; do
+    if [ -f "$file" ] && [ "$(basename "$file")" != "hyprland.conf" ] && [ "$(basename "$file")" != "hyprland.lua" ] && [ "$(basename "$file")" != "variables.conf" ]; then
+        cp "$file" "$HYPR_DIR/hyprland/"
+        CURRENT_FILE=$((CURRENT_FILE + 1))
+        print_progress $((CURRENT_FILE * 100 / TOTAL_FILES))
+        sleep 0.03
+    fi
+done
+
+# Copy hyprland subdirectory configs
+for file in "$SCRIPT_DIR/hyprland/"*.lua "$SCRIPT_DIR/hyprland/"*.conf; do
+    if [ -f "$file" ]; then
+        cp "$file" "$HYPR_DIR/hyprland/"
+        CURRENT_FILE=$((CURRENT_FILE + 1))
+        print_progress $((CURRENT_FILE * 100 / TOTAL_FILES))
+        sleep 0.03
+    fi
+done
     
     # Copy scheme files
     for file in "$SCRIPT_DIR/scheme/"*; do
@@ -398,9 +422,12 @@ main() {
     echo -e "    ${YELLOW}Ctrl+Shift+Escape${RESET} System monitor"
     echo ""
     
-    echo -e "    ${DIM}${ITALIC}Enjoy your new Hyprland setup! 💜${RESET}"
-    echo ""
-    echo ""
+echo -e "    ${DIM}${ITALIC}Enjoy your new Hyprland setup! 💜${RESET}"
+echo ""
+echo ""
+
+# Cleanup temp directory
+rm -rf "$CLONE_DIR"
 }
 
 main "$@"

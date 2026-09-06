@@ -99,7 +99,7 @@ print_progress() {
     printf "\r      ${CYAN}["
     printf "%0.s━" $(seq 1 $filled 2>/dev/null) || true
     if [ $filled -lt $width ]; then
-        printf "${DIM}DownList"
+        printf "${DIM}"
         printf "%0.s─" $(seq 1 $empty 2>/dev/null) || true
     fi
     printf "${CYAN}]${RESET} ${BOLD}%3d%%${RESET}" $percent

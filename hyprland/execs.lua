@@ -61,6 +61,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("sleep 3 && axctl -c ~/.local/share/ambxst/axctl.toml daemon")
     hl.exec_cmd("sleep 2 && ~/.config/hypr/scripts/scheme-watcher.sh")
     hl.exec_cmd("~/.config/hypr/scripts/layout_bind_watcher.sh")
+    hl.exec_cmd("~/.config/hypr/scripts/chromium-renice.sh")
+    hl.exec_cmd("~/.config/hypr/scripts/dolphin-preload.sh")
 end)
 
 -- Shutdown

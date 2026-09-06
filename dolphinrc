@@ -1,0 +1,51 @@
+[ContentDisplay]
+DirectorySizeMode=ContentSize
+RecursiveDirectorySizeLimit=3
+
+[ContextMenu]
+ShowCopyMoveMenu=true
+
+[DetailsMode]
+PreviewSize=32
+
+[ExtractDialog]
+1366x768 screen: Window-Maximized=true
+DirHistory[$e]=/home/fadele
+
+[General]
+BrowseThroughArchives=true
+DynamicView=true
+GlobalViewProps=false
+ShowFullPath=true
+ShowStatusBar=FullWidth
+TabStyle=FixedSize
+UseTabForSwitchingSplitView=true
+Version=202
+ViewPropsTimestamp=2026,8,3,1,1,4.362
+
+[IconsMode]
+PreviewSize=128
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+
+[MainWindow]
+MenuBar=Disabled
+
+[MainWindow][Toolbar mainToolBar]
+IconSize=16
+ToolButtonStyle=IconOnly
+
+[Notification Messages]
+ConfirmRenameFileType=false
+warnAboutRisksBeforeActingAsAdmin=false
+
+[PreviewSettings]
+Plugins=appimagethumbnail,comicbookthumbnail,gsf-office,kraorathumbnail,opendocumentthumbnail,ebookthumbnail,windowsexethumbnail,audiothumbnail,cursorthumbnail,fontthumbnail,djvuthumbnail,mobithumbnail,glycin-image-rs,glycin-jxl,glycin-svg,imagethumbnail,jpegthumbnail,windowsimagethumbnail,svgthumbnail
+
+[UiSettings]
+ColorScheme=Ambxst
+
+[VersionControl]
+enabledPlugins=
